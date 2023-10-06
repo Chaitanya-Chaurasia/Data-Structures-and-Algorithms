@@ -1,4 +1,3 @@
-
 class Node:
     def __init__(self, val):
         self.val = val
@@ -69,29 +68,148 @@ class LinkedList:
             else:
                 print("Index out of range")
 
-    # def update(self, val):
+    def update(self, val1, val2):
 
-    # def deleteHead(self, val):
+        temp = self.head
 
-    # def deleteTail(self, val):
+        # If node with val1 is found, change the val to val2 and break
+        # Else, temp = temp.next till temp.next exists
 
-    # def deleteAtIndex(self, val, index):
+        while temp:
+            if temp.val == val1:
+                temp.val = val2
+                print("Value updated")
+                break
+            else:
+                if temp.next:
+                    temp = temp.next
+                else: 
+                    return
 
-    # def GetLength(self):
 
+    def deleteHead(self):
+
+        # If no head, return
+
+        if not self.head:
+            print("Head not found. Cannot delete!")
+            return
+
+        # Else, make the next element the head
+        self.head = self.head.next
+
+    def deleteTail(self):
+        
+        # If head is not found, return
+        if not self.head:
+            print("Head not found. Cannot Delete!")
+            return
+        
+        # If only head is the node, call delete head
+        if self.head.next is None:
+            self.deleteHead()
+            return
+
+        # ELse travrese till second last element
+        # Set next pointer to None
+        temp = self.head
+
+        while temp.next.next:
+            temp = temp.next
+        
+        temp.next = None
+    
+    def deleteAtIndex(self, index):
+
+        # Check if head exists or not
+        if not self.head:
+            print("Head not found. Cannot Delete!")
+            return
+
+        # If index is 0, call deleteHead
+        if index == 0:
+            self.deleteHead()
+            return
+
+        # Else, traverse to (index-1)th position and change next pointers
+        curr = 0
+        temp = self.head
+
+        while temp.next and curr != index - 1:
+            curr += 1
+            temp = temp.next
+
+        if temp.next is not None:
+            temp.next = temp.next.next
+        else:
+            print("Invalid index. Cannot Delete!")
+
+    def GetLength(self):
+
+        length = 0
+        temp = self.head
+
+        while temp.next:
+            length += 1
+            temp = temp.next
+
+        print(length + 1)
+
+    def reverseLinkedList(self):
+
+        if not self.head:
+            print("Head not found. Cannot reverse LinkedList!")
+            return
+        else:
+            currentNode = self.head
+            previousNode = None
+
+            while currentNode:
+                nextNode = currentNode.next
+                currentNode.next = previousNode
+                previousNode = currentNode
+                currentNode = nextNode
+            self.head = previousNode
+
+
+    def sortLinkedList(self):
+        print("Come back after learning sort")
+        
 
     def printLinkedList(self):
 
-        while self.head:
-            print(self.head.val , "->")
-            self.head = self.head.next
+        temp = self.head
+
+        if not temp:
+            print("\nNULL")
+        while temp:
+            print(temp.val , "-> ", end = "")
+            if temp.next:
+                temp = temp.next
+            else:
+                print("\n")
+                break
 
 
 
 list = LinkedList()
 
-list.insertAtEnd(100)
+list.insertAtBegin(100)
+list.insertAtIndex(0, 0)
+list.insertAtEnd(200)
+list.insertAtIndex(300, 1)
+list.insertAtEnd(400)
 list.printLinkedList() 
+
+# list.update(200, 300)
+# list.printLinkedList() 
+# list.deleteAtIndex(0)
+# list.printLinkedList()
+# list.GetLength() 
+
+list.reverseLinkedList()
+list.printLinkedList() 
+
 
 
 
